@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Aux from "../../hoc/Auxiliary";
 import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
+import Modal from "../../components/UI/Modal/Modal";
+import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 
 const INGREDIENT_PRICES = {
   salad: 0.5,
@@ -19,10 +21,23 @@ class BurgerBuilder extends Component {
       cheese: 0
     },
     totalPrice: 5,
-    purchasable: false
+    purchasable: false,
+    purchasing: false
   };
 
-  updatePurchaseState(ingredients) {
+  purchaseHadler = () => {
+    this.setState({ purchasing: true });
+  };
+
+  purchaseHandlerCancel = () => {
+    this.setState({ purchasing: false });
+  };
+
+  purchaseContinueHandler = () => {
+    alert("Continue");
+  };
+
+  updatePurchaseState = ingredients => {
     // don't update
     //const ingredients = {...this.state.ingredients};
 
@@ -35,7 +50,7 @@ class BurgerBuilder extends Component {
       }, 0);
 
     this.setState({ purchasable: sum > 0 });
-  }
+  };
 
   addIngredientHandler = type => {
     const oldCount = this.state.ingredients[type];
@@ -90,6 +105,17 @@ class BurgerBuilder extends Component {
 
     return (
       <Aux>
+        <Modal
+          modalClosed={this.purchaseHandlerCancel}
+          show={this.state.purchasing}
+        >
+          <OrderSummary
+            finalPrice={this.state.totalPrice}
+            ingredients={this.state.ingredients}
+            purchaseCancel={this.purchaseHandlerCancel}
+            purchaseContinue={this.purchaseContinueHandler}
+          />
+        </Modal>
         <Burger ingredients={this.state.ingredients} />
         <BuildControls
           price={this.state.totalPrice}
@@ -97,6 +123,7 @@ class BurgerBuilder extends Component {
           ingredientRemoved={this.removeIngredientHandler}
           disabled={disabledInfo}
           purchasable={this.state.purchasable}
+          ordered={this.purchaseHadler}
         />
       </Aux>
     );
