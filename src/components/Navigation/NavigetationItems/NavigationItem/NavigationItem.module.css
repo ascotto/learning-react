@@ -22,3 +22,28 @@
   background-color: #8f5c2c;
   border-bottom: 4px solid lightskyblue;
 }
+
+@media (max-width: 500px) {
+  .NavigationItem {
+    margin: 10px 0;
+    display: block;
+    height: 100%;
+    width: auto;
+
+  }
+
+  .NavigationItem a {
+    color: #8f5c2c;
+    width: 100%;
+    display: block;
+  }
+
+  .NavigationItem a:hover,
+  .NavigationItem a:active,
+  .NavigationItem a.active {
+    color: lightskyblue;
+    background-color: transparent;
+    border-bottom: 3px solid lightskyblue;
+    
+  }
+}

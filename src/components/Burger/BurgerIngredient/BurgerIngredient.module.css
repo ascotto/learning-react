@@ -110,3 +110,10 @@
   background: linear-gradient(#bf3813, #c45e38);
   margin: 2% auto;
 }
+
+.Onion {
+  width: 60%;
+  height: 1%;
+  background: linear-gradient(#cfcfcc, #d6bb22);
+  margin: 1% auto;
+}

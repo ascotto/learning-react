@@ -30,6 +30,9 @@ class BurgerIngredients extends Component {
       case "bacon":
         ingredient = <div className={classes.Bacon} />;
         break;
+        case "onion":
+          ingredient = <div className={classes.Onion} />;
+        break;
 
       default:
         ingredient = <div>No ingredient!</div>;
