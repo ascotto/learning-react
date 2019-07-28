@@ -4,18 +4,21 @@ import Aux from "../../../hoc/Auxiliary";
 import Backdrop from "../../UI/Backdrop/Backdrop";
 
 class Modal extends Component {
-
-    shouldComponentUpdate(nextProps, nextState){
-        if(nextProps.show !== this.props.show){
-            return true;
-        }else{
-            return false;
-        }
+  shouldComponentUpdate(nextProps, nextState) {
+    // checking if the children change (spinner loader lecture 209)
+    if (
+      nextProps.show !== this.props.show ||
+      nextProps.children !== this.props.children
+    ) {
+      return true;
+    } else {
+      return false;
     }
+  }
 
-    componentWillUpdate(){
-        console.log('[Modal.js]..');
-    }
+  componentWillUpdate() {
+    console.log("[Modal.js]..");
+  }
 
   render() {
     return (
