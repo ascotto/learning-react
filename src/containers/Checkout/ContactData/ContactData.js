@@ -147,36 +147,24 @@ class ContactData extends Component {
   };
 
   inputChangeHandler = (event, inputIdentifier) => {
-    console.log(event.target.value);
-
-    // clone all form elements
-    const updatedOrderForm = { ...this.state.orderForm };
-
-    // clone single input element
-    const updatedFormElement = { ...updatedOrderForm[inputIdentifier] };
-
-    // get form input
+    const updatedOrderForm = {
+      ...this.state.orderForm
+    };
+    const updatedFormElement = {
+      ...updatedOrderForm[inputIdentifier]
+    };
     updatedFormElement.value = event.target.value;
-
-    // update elemet of form in the state
     updatedFormElement.valid = this.inputValidation(
       updatedFormElement.value,
       updatedFormElement.validation
     );
-
     updatedFormElement.touched = true;
-
-    console.log(updatedOrderForm[inputIdentifier]);
-
     updatedOrderForm[inputIdentifier] = updatedFormElement;
 
-    // Check if the whole form is valid before submitting
     let formIsValid = true;
-
-    for (let inputIdentifier in updatedFormElement) {
-      formIsValid = updatedFormElement[inputIdentifier].valid && formIsValid;
+    for (let inputIdentifier in updatedOrderForm) {
+      formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
     }
-
     this.setState({ orderForm: updatedOrderForm, formIsValid: formIsValid });
   };
 
