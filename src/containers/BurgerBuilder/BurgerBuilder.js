@@ -8,6 +8,10 @@ import axios from "../../axios-orders";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 
+// Redux
+import { connect } from "react-redux";
+import * as actonTypes from "../../store/actions";
+
 const INGREDIENT_PRICES = {
   salad: 0.5,
   cheese: 0.4,
@@ -126,7 +130,7 @@ class BurgerBuilder extends Component {
   };
 
   render() {
-    const disabledInfo = { ...this.state.ingredients };
+    const disabledInfo = { ...this.props.ings };
 
     // this will replace numbers with true or false
     for (let key in disabledInfo) {
@@ -141,14 +145,14 @@ class BurgerBuilder extends Component {
 
     let burgerHTML = this.state.error ? <p>Application error</p> : <Spinner />;
 
-    if (this.state.ingredients) {
+    if (this.props.ings) {
       burgerHTML = (
         <Aux>
-          <Burger ingredients={this.state.ingredients} />
+          <Burger ingredients={this.props.ings} />
           <BuildControls
             price={this.state.totalPrice}
-            ingredientAdded={this.addIngredientHandler}
-            ingredientRemoved={this.removeIngredientHandler}
+            ingredientAdded={this.props.onIngredentAdded}
+            ingredientRemoved={this.props.onIngredentRemove}
             disabled={disabledInfo}
             purchasable={this.state.purchasable}
             ordered={this.purchaseHadler}
@@ -159,7 +163,7 @@ class BurgerBuilder extends Component {
       orderSummaryHTML = (
         <OrderSummary
           finalPrice={this.state.totalPrice}
-          ingredients={this.state.ingredients}
+          ingredients={this.props.ings}
           purchaseCancel={this.purchaseHandlerCancel}
           purchaseContinue={this.purchaseContinueHandler}
         />
@@ -184,4 +188,22 @@ class BurgerBuilder extends Component {
   }
 }
 
-export default withErrorHandler(BurgerBuilder, axios);
+const mapsStateToProps = state => {
+  return {
+    ings: state.ingredients
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onIngredentAdded: ingName =>
+      dispatch({ type: actonTypes.ADD_INGREDIENT, ingredientName: ingName }),
+    onIngredentRemove: ingName =>
+      dispatch({ type: actonTypes.REMOVE_INGREDIENT, ingredientName: ingName })
+  };
+};
+
+export default connect(
+  mapsStateToProps,
+  mapDispatchToProps
+)(withErrorHandler(BurgerBuilder, axios));
