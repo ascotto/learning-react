@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import CheckoutSummary from "../../components/Order/CheckoutSummary/CheckoutSummray";
 import { Route } from "react-router-dom";
 import CheckoutData from "../Checkout/ContactData/ContactData";
+import { connect } from "react-redux";
 
 class Checkout extends Component {
   state = {
@@ -9,6 +10,7 @@ class Checkout extends Component {
     price: 0
   };
 
+  /* Redux
   componentWillMount() {
     console.log(this.props);
     const query = new URLSearchParams(this.props.location.search);
@@ -29,6 +31,7 @@ class Checkout extends Component {
       totalPrice: price
     });
   }
+*/
 
   checkoutCancelHandler = () => {
     this.props.history.goBack();
@@ -41,7 +44,7 @@ class Checkout extends Component {
     return (
       <div>
         <CheckoutSummary
-          ingredients={this.state.ingredients}
+          ingredients={this.props.ings}
           checkoutCancel={this.checkoutCancelHandler}
           checkoutContinue={this.checkoutContinueHandler}
         />
@@ -50,8 +53,8 @@ class Checkout extends Component {
           path={this.props.match.path + "/contact-data"}
           render={props => (
             <CheckoutData
-              ingredients={this.state.ingredients}
-              price={this.state.totalPrice}
+              ingredients={this.props.ings}
+              price={this.props.price}
               {...props}
             />
           )}
@@ -61,4 +64,11 @@ class Checkout extends Component {
   }
 }
 
-export default Checkout;
+const mapsStateToProps = state => {
+  return {
+    ings: state.ingredients,
+    price: state.totalPrice
+  };
+};
+
+export default connect(mapsStateToProps)(Checkout);
