@@ -51,13 +51,15 @@ class Checkout extends Component {
         Contact Data
         <Route
           path={this.props.match.path + "/contact-data"}
+          component={CheckoutData}
+          /* not needed anymore thanks to redux
           render={props => (
             <CheckoutData
               ingredients={this.props.ings}
               price={this.props.price}
               {...props}
             />
-          )}
+          )}*/
         />
       </div>
     );
