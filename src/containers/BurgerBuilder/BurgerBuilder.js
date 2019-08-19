@@ -10,7 +10,8 @@ import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 
 // Redux
 import { connect } from "react-redux";
-import * as actonTypes from "../../store/actions";
+//import * as actonTypes from "../../store/actions/actionTypes";
+import * as burgerBuilderActions from "../../store/actions/index";
 
 /* Moved to the reducer
 const INGREDIENT_PRICES = {
@@ -35,7 +36,10 @@ class BurgerBuilder extends Component {
   componentDidMount() {
     // https://react-burger-lover.firebaseio.com
 
-    axios
+    this.props.onInitIngredients();
+    console.log(this.props.ingredients);
+    /* Moved to Redux   
+      axios
       .get("/ingredients.json")
       .then(r => {
         this.setState({ ingredients: r.data });
@@ -43,6 +47,7 @@ class BurgerBuilder extends Component {
       .catch(err => {
         this.setState({ error: true });
       });
+      */
   }
 
   purchaseHadler = () => {
@@ -155,7 +160,7 @@ class BurgerBuilder extends Component {
       orderSummaryHTML = <Spinner />;
     }
 
-    let burgerHTML = this.state.error ? <p>Application error</p> : <Spinner />;
+    let burgerHTML = this.props.error ? <p>Application error</p> : <Spinner />;
 
     if (this.props.ings) {
       burgerHTML = (
@@ -203,16 +208,18 @@ class BurgerBuilder extends Component {
 const mapsStateToProps = state => {
   return {
     ings: state.ingredients,
-    price: state.totalPrice
+    price: state.totalPrice,
+    error: state.error
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     onIngredentAdded: ingName =>
-      dispatch({ type: actonTypes.ADD_INGREDIENT, ingredientName: ingName }),
+      dispatch(burgerBuilderActions.addIngredient(ingName)),
     onIngredentRemove: ingName =>
-      dispatch({ type: actonTypes.REMOVE_INGREDIENT, ingredientName: ingName })
+      dispatch(burgerBuilderActions.removeIngredient(ingName)),
+    onInitIngredients: () => dispatch(burgerBuilderActions.initIngridients())
   };
 };
 

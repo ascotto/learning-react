@@ -111,18 +111,19 @@ class ContactData extends Component {
       orderData: formData
     };
 
-    axios
-      .post("/orders.json", order)
-      .then(r => {
-        console.log(r);
-        this.setState({ loading: false });
-        this.props.history.push("/");
-      })
-      .catch(r => {
-        this.setState({ loading: false });
-        console.log(r);
-      });
-    console.log("post orderds to firebase");
+    // Moved to order reducer.js
+    // axios
+    //   .post("/orders.json", order)
+    //   .then(r => {
+    //     console.log(r);
+    //     this.setState({ loading: false });
+    //     this.props.history.push("/");
+    //   })
+    //   .catch(r => {
+    //     this.setState({ loading: false });
+    //     console.log(r);
+    //   });
+    // console.log("post orderds to firebase");
   };
 
   inputValidation = (value, rules) => {
