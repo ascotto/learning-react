@@ -1,4 +1,4 @@
-import * as actionTypes from "./actions";
+/*import * as actionTypes from "./actions";
 
 const initialState = {
   ingredients: {
@@ -47,3 +47,4 @@ const reducer = (state = initialState, action) => {
 };
 
 export default reducer;
+*/
