@@ -1,4 +1,5 @@
 import * as actionTypes from "../actions/actionTypes";
+import { updateObject } from "../utility";
 
 // TODO rename reducers to burgerBuilder
 
@@ -19,28 +20,29 @@ const INGREDIENT_PRICES = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.ADD_INGREDIENT:
-      return {
-        ...state,
+      const updatedStateAdd = {
         ingredients: {
           ...state.ingredients,
-          // Ovveride dynamically a property
           [action.ingredientName]: state.ingredients[action.ingredientName] + 1
         },
         totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
       };
+
+      return updateObject(state, updatedStateAdd);
+
     case actionTypes.REMOVE_INGREDIENT:
-      return {
-        ...state,
+      const updatedStateRem = {
         ingredients: {
           ...state.ingredients,
-          // Ovveride dynamically a property
           [action.ingredientName]: state.ingredients[action.ingredientName] - 1
         },
-        totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName]
+        totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
       };
+
+      return updateObject(state, updatedStateRem);
+
     case actionTypes.SET_INGREDIENTS:
-      return {
-        ...state,
+      return updateObject(state, {
         ingredients: {
           bacon: action.ingredients.bacon,
           cheese: action.ingredients.cheese,
@@ -50,12 +52,11 @@ const reducer = (state = initialState, action) => {
         },
         totalPrice: 5,
         error: false
-      };
+      });
+
     case actionTypes.FETCH_INGREDIENTS_FAILED:
-      return {
-        ...state,
-        error: true
-      };
+      return updateObject(state, { error: true });
+
     default:
       return state;
   }
