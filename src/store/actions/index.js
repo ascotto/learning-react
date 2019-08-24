@@ -10,3 +10,5 @@ export {
   purchaseBurgerStart,
   fetchOrders
 } from "./order";
+
+export { authAsync } from "./auth";

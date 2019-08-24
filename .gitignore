@@ -11,6 +11,9 @@
 # production
 /build
 
+# ignore auth key
+/src/secret
+
 # misc
 .DS_Store
 .env.local

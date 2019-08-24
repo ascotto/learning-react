@@ -10,13 +10,14 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import burgerBuilderReducer from "./store/reducers/burgerBuilder";
 import orderReducer from "./store/reducers/order";
+import authReducer from "./store/reducers/auth";
 
 const loggerMiddleware = store => {
   return next => {
     return action => {
-      console.log("[Miiddleware]", action);
+      console.log("[Middleware]", action);
       const result = next(action);
-      console.log("[Miiddleware]", store.getState());
+      console.log("[Middleware]", store.getState());
       return result;
     };
   };
@@ -26,7 +27,8 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
   burgerBuilder: burgerBuilderReducer,
-  order: orderReducer
+  order: orderReducer,
+  auth: authReducer
 });
 
 const store = createStore(
