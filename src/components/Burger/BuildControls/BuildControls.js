@@ -22,12 +22,12 @@ const buildControls = props => (
         label={el.label}
       />
     ))}
-    <button 
-      className={classes.OrderButton} 
+    <button
+      className={classes.OrderButton}
       disabled={!props.purchasable}
       onClick={props.ordered}
-      >
-      Order now
+    >
+      {props.isAuth ? "Order now" : "Sign up"}
     </button>
   </div>
 );
