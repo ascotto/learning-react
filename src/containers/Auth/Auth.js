@@ -16,7 +16,7 @@ class Auth extends Component {
           type: "email",
           placeholder: "Your email address"
         },
-        value: "andrea@zenodys.com",
+        value: "",
         validation: {
           required: true
         },
@@ -29,7 +29,7 @@ class Auth extends Component {
           type: "password",
           placeholder: "Password"
         },
-        value: "test_test",
+        value: "",
         validation: {
           required: true,
           minLength: 6
