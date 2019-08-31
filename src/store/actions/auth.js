@@ -24,6 +24,7 @@ export const authFail = error => {
 };
 
 export const logout = () => {
+  // moved to redux sagas
   // localStorage.removeItem("token");
   // localStorage.removeItem("expirationDate");
   // localStorage.removeItem("userId");
@@ -32,16 +33,34 @@ export const logout = () => {
   };
 };
 
+export const logoutSucceed = () => {
+  return {
+    type: actionTypes.AUTH_LOGOUT
+  };
+};
+
 export const checkAuthTimeout = expirationTime => {
-  return dispatch => {
+  return {
+    type: actionTypes.AUTH_CHECK_TIMEOUT,
+    expirationTime: expirationTime
+  };
+  // moved to redux sagas
+  /*return dispatch => {
     setTimeout(() => {
       dispatch(logout());
       //expire after 1h 3600
     }, expirationTime * 1000);
-  };
+  };*/
 };
 
 export const authAsync = (email, password, isSignup) => {
+  return {
+    type: actionTypes.AUTH_USER,
+    email: email,
+    password: password,
+    isSignup: isSignup
+  };
+  /* Moved to saga
   return dispatch => {
     dispatch(authStart());
     const authData = {
@@ -80,7 +99,7 @@ export const authAsync = (email, password, isSignup) => {
         console.log(err);
         dispatch(authFail(err.response.data.error));
       });
-  };
+  };*/
 };
 
 export const setAuthRedirectPath = path => {
