@@ -110,6 +110,12 @@ export const setAuthRedirectPath = path => {
 };
 
 export const authCheckState = () => {
+  return {
+    type: actionTypes.AUTH_CHECK_INITIAL_STATE
+  };
+
+  /*
+  moved to redux saga
   return dispatch => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -128,5 +134,5 @@ export const authCheckState = () => {
         );
       }
     }
-  };
+  };*/
 };
