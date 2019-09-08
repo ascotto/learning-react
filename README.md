@@ -1,8 +1,11 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
+## Learning React
 
 In the project directory, you can run:
+
+### Faster creation of components
+
+VSCode install ES7 React/Redux/GraphQL/React-Native snippets".
+Type in rafc then TAB
 
 ### `npm start`
 
