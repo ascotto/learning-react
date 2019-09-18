@@ -26,10 +26,13 @@ const INGREDIENT_PRICES = {
 const BurgerBuilder = props => {
   const [purchasing, setPurchasing] = useState(false);
 
+  const { onInitIngredients } = props;
+
+  console.log(props.ingredients);
+
   useEffect(() => {
-    props.onInitIngredients();
-    console.log(props.ingredients);
-  }, []);
+    onInitIngredients();
+  }, [onInitIngredients]);
 
   const purchaseHadler = () => {
     if (props.isAuthenticated) {
